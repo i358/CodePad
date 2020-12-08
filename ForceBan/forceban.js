@@ -17,7 +17,7 @@ exports.run = async (a, e, o) => {
     var uid = o[0]
     var rsn = o.slice(1).join(' ') || "No Reason"
     // -------------- //  
-    if (e.member.hasPermission("BAN_MEMBERS")) return e.reply(`${n} Bu komutu kullanmak için yeterli izni taşımıyorsun.`);
+    if (!e.member.hasPermission("BAN_MEMBERS")) return e.reply(`${n} Bu komutu kullanmak için yeterli izni taşımıyorsun.`);
     control = await db.fetch(`fcban_${e.guild.id}-${uid}`)
     control === 1 ? cPrc() : e.reply(`${n} Bu kullanıcı zaten yasaklanmış.`)
     /*          END FUNCTION               */
