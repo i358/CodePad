@@ -18,10 +18,11 @@ exports.run = async (a, e, o) => {
     var rsn = o.slice(1).join(' ') || "No Reason"
     // -------------- //  
     if (!e.member.hasPermission("BAN_MEMBERS")) return e.reply(`${n} Bu komutu kullanmak için yeterli izni taşımıyorsun.`);
+  if(!uid) return e.reply(`${n} Bir kullanıcı etiketle.`)
     control = await db.fetch(`fcban_${e.guild.id}-${uid}`)
-    control === 1 ? cPrc() : e.reply(`${n} Bu kullanıcı zaten yasaklanmış.`)
+ if(control===1) return e.reply(`${n} Bu kullanıcı zaten yasaklanmış.`)
     /*          END FUNCTION               */
-    function cPrc() {
+    
         try {
             if (e.guild.member(uid)) e.guild.member(uid).ban({ reason: rsn })
             db.set(`fcban_${e.guild.id}-${uid}`, 1)
@@ -29,10 +30,10 @@ exports.run = async (a, e, o) => {
         } catch (err) {
             throw new Error(err);
         }
-    }
+    
     /* ---------------------------------- */
 }
 // --------------------------------------------------------------- //
 exports.conf = { enabled: true, guildOnly: false, permLevel: 0, aliases: [] }
 exports.help = { name: 'forceban', description: 'by rhi.' }
-// -------------------------------------------------------------- //
+// -------------------------------------------------------------- // 
